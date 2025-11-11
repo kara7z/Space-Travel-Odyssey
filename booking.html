@@ -2,56 +2,105 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SpaceVoyager — Explore Beyond Earth</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'space-dark': '#0a0a18',
-                        'space-blue': '#1a1a2e',
-                        'space-purple': '#16213e',
-                        'neon-blue': '#0ea5e9',
-                        'neon-purple': '#8b5cf6',
-                        'neon-cyan': '#06b6d4',
+                        "space-dark": "#0a0a18",
+                        "space-blue": "#1a1a2e",
+                        "space-purple": "#16213e",
+                        "neon-blue": "#0ea5e9",
+                        "neon-purple": "#8b5cf6",
+                        "neon-cyan": "#06b6d4",
                     },
                     fontFamily: {
-                        'orbitron': ['Orbitron', 'sans-serif'],
-                        'exo': ['Exo 2', 'sans-serif'],
+                        orbitron: ["Orbitron", "sans-serif"],
+                        exo: ["Exo 2", "sans-serif"],
                     },
                     backgroundImage: {
-                        'space-pattern': "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSgxMzUpIj48cmVjdCB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSIjMWExYTJlIi8+PHBhdGggZD0iTTAgMTBoNDBNMTAgMHY0ME0wIDIwaDQwTTIwIDB2NDBNMCAzMGg0ME0zMCAwdjQwIiBzdHJva2U9IiMyNjEzZTQiIHN0cm9rZS13aWR0aD0iMC41Ii8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3BhdHRlcm4pIi8+PC9zdmc+')",
-                    }
-                }
-            }
-        }
+                        "space-pattern":
+                            "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSgxMzUpIj48cmVjdCB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSIjMWExYTJlIi8+PHBhdGggZD0iTTAgMTBoNDBNMTAgMHY0ME0wIDIwaDQwTTIwIDB2NDBNMCAzMGg0ME0zMCAwdjQwIiBzdHJva2U9IiMyNjEzZTQiIHN0cm9rZS13aWR0aD0iMC41Ii8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3BhdHRlcm4pIi8+PC9zdmc+')",
+                    },
+                },
+            },
+        };
     </script>
     <style>
+        :root {
+            /* Color Palette */
+            --space-dark: #0a0a18;
+            --space-blue: #1a1a2e;
+            --space-purple: #16213e;
+            --neon-blue: #0ea5e9;
+            --neon-purple: #8b5cf6;
+            --neon-cyan: #06b6d4;
+            --neon-pink: #ec4899;
+
+            /* Gradients */
+            --gradient-primary: linear-gradient(to right, var(--neon-blue), var(--neon-purple));
+            --gradient-secondary: linear-gradient(to right, var(--neon-cyan), var(--neon-blue));
+            --gradient-accent: linear-gradient(to right, var(--neon-purple), var(--neon-pink));
+            --background-gradient: linear-gradient(to bottom, var(--space-dark), var(--space-blue), var(--space-purple));
+
+            /* Typography */
+            --font-orbitron: 'Orbitron', sans-serif;
+            --font-exo: 'Exo 2', sans-serif;
+
+            /* Spacing */
+            --section-padding: 3rem 0;
+            --container-max-width: 1200px;
+
+            /* Border Radius */
+            --border-radius: 15px;
+            --border-radius-sm: 8px;
+
+            /* Transitions */
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+
+        }
+
         body {
             background: linear-gradient(to bottom, #0a0a18, #1a1a2e, #16213e);
             background-attachment: fixed;
             position: relative;
             overflow-x: hidden;
+            font-family: var(--font-exo, "Font Awesome 6 Free");
+            font-feature-settings: normal;
+            font-variation-settings: normal;
         }
 
         body::before {
-            content: '';
+            content: "";
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image:
-                radial-gradient(circle at 10% 20%, rgba(14, 165, 233, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 60%, rgba(139, 92, 246, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 40% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 20%);
+            background-image: radial-gradient(circle at 10% 20%,
+                    rgba(14, 165, 233, 0.1) 0%,
+                    transparent 20%),
+                radial-gradient(circle at 90% 60%,
+                    rgba(139, 92, 246, 0.1) 0%,
+                    transparent 20%),
+                radial-gradient(circle at 40% 80%,
+                    rgba(6, 182, 212, 0.1) 0%,
+                    transparent 20%);
             z-index: -1;
         }
 
@@ -60,6 +109,20 @@
             background-color: white;
             border-radius: 50%;
             animation: twinkle 5s infinite;
+        }
+
+        .form-input {
+            background: rgba(22, 33, 62, 0.5);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            border-radius: 8px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            border-color: rgba(14, 165, 233, 0.7);
+            box-shadow: 0 0 10px rgba(14, 165, 233, 0.3);
+            outline: none;
         }
 
         @keyframes twinkle {
@@ -98,7 +161,7 @@
         }
 
         .nav-link::after {
-            content: '';
+            content: "";
             position: absolute;
             bottom: -5px;
             left: 0;
@@ -143,6 +206,36 @@
 
         .mobile-menu.open {
             max-height: 300px;
+        }
+
+        .form-in {
+            gap: 1rem;
+        }
+        .Destination-Selc option{
+            background-color: #161c34;
+        }
+
+
+        @media screen and (max-width: 767px) {
+            .form-in {
+                gap: 0;
+            }
+
+            .planet-card {
+                display: flex;
+                flex-direction: column;
+                /* align-items: center; */
+                justify-content: center;
+                text-align: center;
+
+            }
+
+            .radio-op {
+
+                align-items: center;
+                justify-content: center;
+
+            }
         }
     </style>
 </head>
@@ -198,101 +291,109 @@
     <main class="container mx-auto px-4 py-8 relative z-10">
         <!-- Hero Section -->
         <section class="py-16 md:py-24 text-center">
-            <h1 class="font-orbitron text-4xl md:text-6xl font-bold mb-6 text-glow">Book Your Space Journey</h1>
+            <h1 class="font-orbitron text-4xl md:text-6xl font-bold mb-6 text-glow">
+                Book Your Space Journey
+            </h1>
             <p class="text-xl md:text-2xl max-w-2xl mx-auto mb-10 text-gray-300">
-                Begin your adventure to the stars. Fill out the form below to reserve your spot on our next space
-                voyage.
+                Begin your adventure to the stars. Fill out the form below to reserve
+                your spot on our next space voyage.
             </p>
-
         </section>
 
-        <!-- Moon -->
-        <div class="planet-card p-8 bg-[#17172b] ">
-
-
-            <span>Journey Details</span>
-            <div class="flex flex-col gap-1 ">
-                <label for="Destination">Destination</label>
-                <select name="Destination" id="" class="p-3 bg-[#171d35] rounded-lg border-white">
-                    <option value="Select your destination">Select your destination</option>
+        <div class="planet-card p-8 bg-[#17172b]">
+            <span class="font-orbitron text-3xl mb-4 text-glow">Journey Details</span>
+            <div class="flex flex-col gap-2 pt-6">
+                <label for="Destination" class="text-xl">Destination</label>
+                <select name="Destination" id="" class="form-input w-full px-4 py-3 Destination-Selc">
+                    <option value="Select your destination">
+                        Select your destination
+                    </option>
                     <option value="The Moon">The Moon</option>
                     <option value="Mars">Mars</option>
                     <option value="Europa">Europa</option>
                     <option value="Titan">Titan</option>
                 </select>
             </div>
-            <div class="flex flex-col gap-1 ">
-                <label for="Departure Date">Departure Date</label>
-                <input type="date" class="bg-[#171d35] p-3 rounded-lg">
+            <div class="flex flex-col py-6 gap-2">
+                <label for="Departure Date" class="text-xl">Departure Date</label>
+                <input type="date" class="form-input w-full px-4 py-3" />
             </div>
             <div>
-                <label for="Number of Passengers">Number of Passengers</label>
-                <div>
-                    <input type="radio" name="Passengers" id="" value="Solo Traveler">
-                    <label for="Solo Traveler">Solo Traveler</label>
-                    <input type="radio" name="Passengers" id="" value="Couple (2)">
-                    <label for="Couple">Couple (2)</label>
-                    <input type="radio" name="Passengers" id="" value="Group (3-6)">
-                    <label for="Group">Group (3-6)</label>
-                </div>
-                <label for="">Accommodation Type</label>
-                <div class="grid grid-cols-3 p-2">
-                    <div>
-                        <h3 class="text-[#0ea8ed]">Standard Cabin</h3>
-                        <p>Comfortable private quarters with basic amenities</p>
+                <label for="Number of Passengers" class="text-xl">Number of Passengers</label>
+                <div class="flex flex-wrap gap-3 py-4  radio-op">
+                    <div class="flex gap-2">
+                        <input type="radio" name="Passengers" id="" value="Solo Traveler" checked/>
+                        <label for="Solo Traveler">Solo Traveler</label>
                     </div>
-                    <div>
-                        <h3 class="text-[#0ea8ed]">Luxurg Suite</h3>
-                        <p>Spacious suite with premium amenities and viewports</p>
+                    <div class="flex gap-2">
+                        <input type="radio" name="Passengers" id="" value="Couple (2)" />
+                        <label for="Couple">Couple (2)</label>
                     </div>
-                    <div>
-                        <h3 class="text-[#0ea8ed]">Zero-G Pod</h3>
-                        <p>Advanced accommodation with zero-gravity experience</p>
+                    <div class="flex gap-2">
+                        <input type="radio" name="Passengers" id="" value="Group (3-6)" />
+                        <label for="Group">Group (3-6)</label>
                     </div>
-
                 </div>
-
-
-            </div>
-            <hr>
-            <span>Personal Information</span>
-            <div class="grid grid-cols-2 gap-4">
-                <div class="flex flex-col">
-                    <label for="First Name">First Name</label>
-                    <input type="text">
-                </div>
-                <div class="flex flex-col">
-                    <label for="Last Name">Last Name</label>
-                    <input type="text">
+                <label for="" class="text-xl">Accommodation Type</label>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 py-5 [grid-template-columns:repeat(auto-fit,minmax(200px,1fr))]">
+                    <div class="px-6 py-3 planet-card card-hover text-2xl">
+                        <h3 class="text-[#0ea8ed] font-orbitron">Standard Cabin</h3>
+                        <p class=" text-xl font-light">Comfortable private quarters with basic amenities</p>
+                    </div>
+                    <div class="px-6 py-3 planet-card card-hover text-2xl">
+                        <h3 class="text-[#0ea8ed] font-orbitron">Luxurg Suite</h3>
+                        <p class=" text-xl font-light">Spacious suite with premium amenities and viewports</p>
+                    </div>
+                    <div class=" px-6 py-3 planet-card card-hover text-2xl">
+                        <h3 class="text-[#0ea8ed] font-orbitron">Zero-G Pod</h3>
+                        <p class=" text-xl font-light">Advanced accommodation with zero-gravity experience</p>
+                    </div>
                 </div>
             </div>
-            <div class="grid grid-cols-2 gap-4">
+            <hr class=" border-[rgba(14,165,233,0.3)] border-1 my-6">
+            <span class="font-orbitron text-3xl mb-22 text-glow y-24">Personal Information</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 form-in">
                 <div class="flex flex-col">
-                    <label for="Email">Email Address</label>
-                    <input type="text">
+                    <label for="First Name" class="text-xl">First Name</label>
+                    <input type="text" class="form-input w-full px-4 py-3 my-2" placeholder="Enter your first name" />
                 </div>
+                <div class="flex flex-col">
+                    <label for="Last Name" class="text-xl">Last Name</label>
+                    <input type="text" class="form-input w-full px-4 py-3 my-2" placeholder="Enter your last name" />
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 form-in">
                 <div class="flex flex-col ">
-                    <label for="Phone Number">Phone Number</label>
-                    <input type="tel">
+                    <label for="Email" class="text-xl">Email Address</label>
+                    <input type="text" class="form-input w-full px-4 py-3 my-2" placeholder="Enter your email" />
+                </div>
+                <div class="flex flex-col">
+                    <label for="Phone Number" class="text-xl">Phone Number</label>
+                    <input type="tel" class="form-input w-full px-4 py-3 my-2" placeholder="Enter your phone number" />
                 </div>
             </div>
-            <div class="flex flex-col">
-                <label for="textarea">Special Requirements</label>
-                <textarea name="textarea" id="" placeholder="Any special requirements or notes..."></textarea>
+            <div class="grid gap-12">
+                <div class="flex flex-col gap-2">
+                    <label for="textarea">Special Requirements</label>
+                    <textarea name="textarea" id="" placeholder="Any special requirements or notes..."
+                        class="form-input w-full px-4 py-2 h-32"></textarea>
+                </div>
+                <div class="flex flex-col gap-12">
+                    <button class="bg-[#5b78f1f] p-4 rounded-lg glow">
+                        Add Passanger
+                    </button>
+                    <button class="btn-primary text-white px-8 py-4 rounded-lg font-bold text-lg glow">
+                        Confirm Booking
+                    </button>
+                </div>
             </div>
-            <div class="flex flex-col ">
-                <button class="bg-[#5b78f1f]">Add Passanger</button>
-                <button>Add Passanger</button>
-            </div>
-            <div class="flex ">
-                <h1>By confirming, you agree to our</h1>
-                <a href="" target="_blank">Terms of Service</a>
-                <h1>and</h1>
-                <a href="">Space Travel Agreement</a>
-                <h1>.</h1>
+            <div class="flex justify-center flex-wrap py-2 gap-1 text-sm">
+                <small>By confirming, you agree to our
+                    <a href="" target="_blank" class="text-[#0ea8ed] hover:underline">Terms of Service</a>
+                    and <a href="" class="text-[#0ea8ed] hover:underline "> Space Travel Agreement</a>.
+                </small>
             </div>
         </div>
-
     </main>
 
     <!-- Footer -->
@@ -302,12 +403,14 @@
                 <div class="mb-4 md:mb-0">
                     <div class="flex items-center space-x-2 mb-2">
                         <div
-                            class="w-8 h-8 rounded-full bg-gradient-to-r from-neon-blue to-neon-purple flex items-center justify-center">
+                            class="w-8 h-8 rounded-full bg-gradient-to-r from-neon-blue to-neon-puxrple flex items-center justify-center">
                             <i class="fas fa-rocket text-white text-sm"></i>
                         </div>
                         <span class="font-orbitron text-lg">SpaceVoyager</span>
                     </div>
-                    <p class="text-gray-400 text-sm">© 2023 SpaceVoyager. All rights reserved.</p>
+                    <p class="text-gray-400 text-sm">
+                        © 2023 SpaceVoyager. All rights reserved.
+                    </p>
                 </div>
 
                 <div class="flex space-x-6 mb-4 md:mb-0">
@@ -326,7 +429,9 @@
                 </div>
 
                 <div class="text-center md:text-right">
-                    <p class="text-gray-400 text-sm">Contact us: info@spacevoyager.com</p>
+                    <p class="text-gray-400 text-sm">
+                        Contact us: info@spacevoyager.com
+                    </p>
                     <p class="text-gray-400 text-sm">+1 (800) SPACE-TRIP</p>
                 </div>
             </div>
@@ -336,12 +441,12 @@
     <script>
         // Create stars background
         function createStars() {
-            const container = document.getElementById('stars-container');
+            const container = document.getElementById("stars-container");
             const starCount = 150;
 
             for (let i = 0; i < starCount; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
+                const star = document.createElement("div");
+                star.classList.add("star");
 
                 // Random size between 1-3px
                 const size = Math.random() * 2 + 1;
@@ -360,13 +465,15 @@
         }
 
         // Mobile menu toggle
-        document.getElementById('mobile-menu-button').addEventListener('click', function () {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('open');
-        });
+        document
+            .getElementById("mobile-menu-button")
+            .addEventListener("click", function () {
+                const menu = document.getElementById("mobile-menu");
+                menu.classList.toggle("open");
+            });
 
         // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener("DOMContentLoaded", function () {
             createStars();
         });
     </script>
