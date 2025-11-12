@@ -10,6 +10,7 @@
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="Icon" href="">
     <script>
         tailwind.config = {
             theme: {
@@ -31,9 +32,45 @@
         }
     </script>
     <style>
+        :root {
+            /* Color Palette */
+            --space-dark: #0a0a18;
+            --space-blue: #1a1a2e;
+            --space-purple: #16213e;
+            --neon-blue: #0ea5e9;
+            --neon-purple: #8b5cf6;
+            --neon-cyan: #06b6d4;
+            --neon-pink: #ec4899;
+
+            /* Gradients */
+            --gradient-primary: linear-gradient(to right, var(--neon-blue), var(--neon-purple));
+            --gradient-secondary: linear-gradient(to right, var(--neon-cyan), var(--neon-blue));
+            --gradient-accent: linear-gradient(to right, var(--neon-purple), var(--neon-pink));
+            --background-gradient: linear-gradient(to bottom, var(--space-dark), var(--space-blue), var(--space-purple));
+
+            /* Typography */
+            --font-orbitron: 'Orbitron', sans-serif;
+            --font-exo: 'Exo 2', sans-serif;
+
+            /* Spacing */
+            --section-padding: 3rem 0;
+            --container-max-width: 1200px;
+
+            /* Border Radius */
+            --border-radius: 15px;
+            --border-radius-sm: 8px;
+
+            /* Transitions */
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
+        }
         body {
             background: linear-gradient(to bottom, #0a0a18, #1a1a2e, #16213e);
             background-attachment: fixed;
+            font-family: var(--font-exo, "Font Awesome 6 Free");
+            font-feature-settings: normal;
+            font-variation-settings: normal;
         }
 
         .star {

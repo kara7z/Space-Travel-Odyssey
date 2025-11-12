@@ -187,6 +187,23 @@
             border-color: rgba(14, 165, 233, 0.7);
             box-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
         }
+        .accommodation {
+            background: rgba(22, 33, 62, 0.7);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .accommodation:hover {
+            border-color: rgba(14, 165, 233, 0.7);
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
+        }
+
+        .selected {
+            border-color: rgba(14, 165, 233, 0.7);
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
+        }
+
 
         .btn-primary {
             background: linear-gradient(to right, #0ea5e9, #8b5cf6);
@@ -353,17 +370,16 @@
                     </div>
                 </div>
                 <label for="" class="text-xl">Accommodation Type</label>
-                <div
-                    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 py-5 [grid-template-columns:repeat(auto-fit,minmax(200px,1fr))]">
-                    <div class="px-6 py-3 planet-card card-hover text-2xl">
+                <div class="Selection grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 py-5 [grid-template-columns:repeat(auto-fit,minmax(200px,1fr))]">
+                    <div id="standard-cabin" class="px-6 py-3 accommodation text-2xl">
                         <h3 class="text-[#0ea8ed] font-orbitron">Standard Cabin</h3>
                         <p class=" text-xl font-light">Comfortable private quarters with basic amenities</p>
                     </div>
-                    <div class="px-6 py-3 planet-card card-hover text-2xl">
+                    <div id="luxurg-suite" class="px-6 py-3 accommodation text-2xl">
                         <h3 class="text-[#0ea8ed] font-orbitron">Luxurg Suite</h3>
                         <p class=" text-xl font-light">Spacious suite with premium amenities and viewports</p>
                     </div>
-                    <div class=" px-6 py-3 planet-card card-hover text-2xl">
+                    <div id="zero-g" class=" px-6 py-3 accommodation text-2xl">
                         <h3 class="text-[#0ea8ed] font-orbitron">Zero-G Pod</h3>
                         <p class=" text-xl font-light">Advanced accommodation with zero-gravity experience</p>
                     </div>
@@ -463,7 +479,7 @@
     </footer>
 
     <script src="JavaScript/index.js" defer></script>
-    <script src="JavaScript/login.js" defer></script>
+    <script src="JavaScript/booking.js" defer></script>
 </body>
 
 </html>
