@@ -187,6 +187,7 @@
             border-color: rgba(14, 165, 233, 0.7);
             box-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
         }
+
         .accommodation {
             background: rgba(22, 33, 62, 0.7);
             border: 1px solid rgba(14, 165, 233, 0.3);
@@ -194,9 +195,11 @@
             overflow: hidden;
             transition: all 0.3s ease;
         }
+
         .accommodation:hover {
             border-color: rgba(14, 165, 233, 0.7);
-            box-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.15);
+            cursor: pointer;
         }
 
         .selected {
@@ -231,6 +234,41 @@
 
         .Destination-Selc option {
             background-color: #161c34;
+        }
+
+        .input-control.success input,
+        .input-control.success textarea {
+            border-color: #10b981 !important;
+        }
+
+        .input-control.error input,
+        .input-control.error textarea {
+            border-color: #ef4444 !important;
+            animation: shake 0.4s ease;
+        }
+
+        .input-control .error {
+            color: #ef4444;
+            font-size: 12px;
+            min-height: 16px;
+            margin-top: 4px;
+            display: block;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-5px);
+            }
+
+            75% {
+                transform: translateX(5px);
+            }
         }
 
 
@@ -293,6 +331,7 @@
                                 <span class="font-semibold">username:</span>
                                 <span id="desktopUsername" class="font-medium">KARA</span>
                             </div>
+                            <a href="mybooking.html"><button class="text-white w-full hover:underline">My Booking</button></a>
                             <button id="logoutBtn" class="text-neon-cyan hover:underline w-full">Log-out</button>
                         </div>
                     </div>
@@ -335,48 +374,50 @@
             </p>
         </section>
 
-        <div class="planet-card p-8 bg-[#17172b]">
+        <form id="bookingForm" class="planet-card p-8 bg-[#17172b]">
             <span class="font-orbitron text-3xl mb-4 text-glow">Journey Details</span>
             <div class="flex flex-col gap-2 pt-6">
-                <label for="Destination" class="text-xl">Destination</label>
-                <select name="Destination" id="" class="form-input w-full px-4 py-3 Destination-Selc">
-                    <option value="Select your destination">
-                        Select your destination
-                    </option>
+                <label for="destination" class="text-xl">Destination</label>
+                <select name="destination" id="destination" class="form-input w-full px-4 py-3 Destination-Selc"
+                    required>
+                    <option value="">Select your destination</option>
                     <option value="The Moon">The Moon</option>
                     <option value="Mars">Mars</option>
                     <option value="Europa">Europa</option>
                     <option value="Titan">Titan</option>
                 </select>
             </div>
-            <div class="flex flex-col py-6 gap-2">
-                <label for="Departure Date" class="text-xl">Departure Date</label>
-                <input type="date" class="form-input w-full px-4 py-3" />
+            <div class="flex flex-col py-6 gap-2 input-control">
+                <label for="departureDate" class="text-xl">Departure Date</label>
+                <input type="date" id="departureDate" name="departureDate" class="form-input w-full px-4 py-3" required
+                    min="2025-11-13" />
+                <div class="error"></div>
             </div>
             <div>
-                <label for="Number of Passengers" class="text-xl">Number of Passengers</label>
-                <div class="flex flex-wrap gap-3 py-4  radio-op">
+                <label class="text-xl">Number of Passengers</label>
+                <div class="flex flex-wrap gap-3 py-4 radio-op">
                     <div class="flex gap-2">
-                        <input type="radio" name="Passengers" id="" value="Solo Traveler" checked />
-                        <label for="Solo Traveler">Solo Traveler</label>
+                        <input type="radio" name="passengers" id="solo" value="1" checked required />
+                        <label for="solo">Solo Traveler (1)</label>
                     </div>
                     <div class="flex gap-2">
-                        <input type="radio" name="Passengers" id="" value="Couple (2)" />
-                        <label for="Couple">Couple (2)</label>
+                        <input type="radio" name="passengers" id="couple" value="2" />
+                        <label for="couple">Couple (2)</label>
                     </div>
                     <div class="flex gap-2">
-                        <input type="radio" name="Passengers" id="" value="Group (3-6)" />
-                        <label for="Group">Group (3-6)</label>
+                        <input type="radio" name="passengers" id="group" value="3-6" />
+                        <label for="group">Group (3-6)</label>
                     </div>
                 </div>
-                <label for="" class="text-xl">Accommodation Type</label>
-                <div class="Selection grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 py-5 [grid-template-columns:repeat(auto-fit,minmax(200px,1fr))]">
+                <label class="text-xl">Accommodation Type</label>
+                <div
+                    class="Selection grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 py-5 [grid-template-columns:repeat(auto-fit,minmax(200px,1fr))]">
                     <div id="standard-cabin" class="px-6 py-3 accommodation text-2xl">
                         <h3 class="text-[#0ea8ed] font-orbitron">Standard Cabin</h3>
                         <p class=" text-xl font-light">Comfortable private quarters with basic amenities</p>
                     </div>
-                    <div id="luxurg-suite" class="px-6 py-3 accommodation text-2xl">
-                        <h3 class="text-[#0ea8ed] font-orbitron">Luxurg Suite</h3>
+                    <div id="luxury-suite" class="px-6 py-3 accommodation text-2xl">
+                        <h3 class="text-[#0ea8ed] font-orbitron">Luxury Suite</h3>
                         <p class=" text-xl font-light">Spacious suite with premium amenities and viewports</p>
                     </div>
                     <div id="zero-g" class=" px-6 py-3 accommodation text-2xl">
@@ -387,42 +428,47 @@
             </div>
             <hr class=" border-[rgba(14,165,233,0.3)] border-1 my-6">
             <span class="font-orbitron text-3xl text-glow">Personal Information</span>
-            <div class="pt-5">
-                <div class="grid grid-cols-1 md:grid-cols-2 form-in">
-                    <div class="flex flex-col">
-                        <label for="First Name" class="text-xl ">First Name</label>
-                        <input type="text" class="form-input w-full px-4 py-3 my-2"
-                            placeholder="Enter your first name" />
+            <div id="passengersContainer" class="pt-5">
+                <!-- Initial passenger fields -->
+                <div class="passenger-fields grid grid-cols-1 md:grid-cols-2 form-in" data-passenger="1">
+                    <div class="flex flex-col input-control">
+                        <label for="fName1" class="text-xl">First Name</label>
+                        <input id="fName1" name="fName1" type="text" class="form-input w-full px-4 py-3 my-2"
+                            placeholder="Enter your first name" required />
+                        <div class="error"></div>
                     </div>
-                    <div class="flex flex-col">
-                        <label for="Last Name" class="text-xl">Last Name</label>
-                        <input type="text" class="form-input w-full px-4 py-3 my-2"
-                            placeholder="Enter your last name" />
+                    <div class="flex flex-col input-control">
+                        <label for="lName1" class="text-xl">Last Name</label>
+                        <input id="lName1" name="lName1" type="text" class="form-input w-full px-4 py-3 my-2"
+                            placeholder="Enter your last name" required />
+                        <div class="error"></div>
                     </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 form-in">
-                    <div class="flex flex-col ">
-                        <label for="Email" class="text-xl">Email Address</label>
-                        <input type="text" class="form-input w-full px-4 py-3 my-2" placeholder="Enter your email" />
+                    <div class="flex flex-col input-control">
+                        <label for="email1" class="text-xl">Email Address</label>
+                        <input id="email1" name="email1" type="email" class="form-input w-full px-4 py-3 my-2"
+                            placeholder="Enter your email" required />
+                        <div class="error"></div>
                     </div>
-                    <div class="flex flex-col">
-                        <label for="Phone Number" class="text-xl">Phone Number</label>
-                        <input type="tel" class="form-input w-full px-4 py-3 my-2"
-                            placeholder="Enter your phone number" />
+                    <div class="flex flex-col input-control">
+                        <label for="phone1" class="text-xl">Phone Number</label>
+                        <input id="phone1" name="phone1" type="tel" class="form-input w-full px-4 py-3 my-2"
+                            placeholder="Enter your phone number" required />
+                        <div class="error"></div>
                     </div>
                 </div>
             </div>
-            <div class="grid gap-12">
-                <div class="flex flex-col gap-2">
-                    <label for="textarea" class="text-xl">Special Requirements</label>
-                    <textarea name="textarea" id="" placeholder="Any special requirements or notes..."
+            <div class="grid gap-12 pt-6">
+                <div class="flex flex-col gap-2 input-control">
+                    <label for="message" class="text-xl">Special Requirements</label>
+                    <textarea name="message" id="message" placeholder="Any special requirements or notes..."
                         class="form-input w-full px-4 py-2 h-32"></textarea>
+                    <div class="error"></div>
                 </div>
                 <div class="flex flex-col gap-12">
-                    <button class="bg-[#5b78f1f] p-4 rounded-lg glow">
-                        Add Passanger
+                    <button id="addPassengerBtn" type="button" class="bg-[#5b78f1] p-4 rounded-lg glow">
+                        Add Passenger
                     </button>
-                    <button class="btn-primary text-white px-8 py-4 rounded-lg font-bold text-lg glow">
+                    <button class="btn-primary text-white px-8 py-4 rounded-lg font-bold text-lg glow" type="submit">
                         Confirm Booking
                     </button>
                 </div>
@@ -433,7 +479,7 @@
                     and <a href="" class="text-[#0ea8ed] hover:underline "> Space Travel Agreement</a>.
                 </small>
             </div>
-        </div>
+        </form>
     </main>
 
     <!-- Footer -->
@@ -443,7 +489,7 @@
                 <div class="mb-4 md:mb-0">
                     <div class="flex items-center space-x-2 mb-2">
                         <div
-                            class="w-8 h-8 rounded-full bg-gradient-to-r from-neon-blue to-neon-puxrple flex items-center justify-center">
+                            class="w-8 h-8 rounded-full bg-gradient-to-r from-neon-blue to-neon-purple flex items-center justify-center">
                             <i class="fas fa-rocket text-white text-sm"></i>
                         </div>
                         <span class="font-orbitron text-lg">SpaceVoyager</span>

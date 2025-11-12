@@ -2,34 +2,38 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - SpaceVoyager</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SpaceVoyager — Explore Beyond Earth</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="Icon" href="">
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'space-dark': '#0a0a18',
-                        'space-blue': '#1a1a2e',
-                        'space-purple': '#16213e',
-                        'neon-blue': '#0ea5e9',
-                        'neon-purple': '#8b5cf6',
-                        'neon-cyan': '#06b6d4',
+                        "space-dark": "#0a0a18",
+                        "space-blue": "#1a1a2e",
+                        "space-purple": "#16213e",
+                        "neon-blue": "#0ea5e9",
+                        "neon-purple": "#8b5cf6",
+                        "neon-cyan": "#06b6d4",
                     },
                     fontFamily: {
-                        'orbitron': ['Orbitron', 'sans-serif'],
-                        'exo': ['Exo 2', 'sans-serif'],
+                        orbitron: ["Orbitron", "sans-serif"],
+                        exo: ["Exo 2", "sans-serif"],
                     },
-                }
-            }
-        }
+                    backgroundImage: {
+                        "space-pattern":
+                            "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSgxMzUpIj48cmVjdCB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSIjMWExYTJlIi8+PHBhdGggZD0iTTAgMTBoNDBNMTAgMHY0ME0wIDIwaDQwTTIwIDB2NDBNMCAzMGg0ME0zMCAwdjQwIiBzdHJva2U9IiMyNjEzZTQiIHN0cm9rZS13aWR0aD0iMC41Ii8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3BhdHRlcm4pIi8+PC9zdmc+')",
+                    },
+                },
+            },
+        };
     </script>
     <style>
         :root {
@@ -65,12 +69,39 @@
             --transition-normal: 0.3s ease;
             --transition-slow: 0.5s ease;
         }
+
+        html {
+            scroll-behavior: smooth;
+
+        }
+
         body {
             background: linear-gradient(to bottom, #0a0a18, #1a1a2e, #16213e);
             background-attachment: fixed;
+            position: relative;
+            overflow-x: hidden;
             font-family: var(--font-exo, "Font Awesome 6 Free");
             font-feature-settings: normal;
             font-variation-settings: normal;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at 10% 20%,
+                    rgba(14, 165, 233, 0.1) 0%,
+                    transparent 20%),
+                radial-gradient(circle at 90% 60%,
+                    rgba(139, 92, 246, 0.1) 0%,
+                    transparent 20%),
+                radial-gradient(circle at 40% 80%,
+                    rgba(6, 182, 212, 0.1) 0%,
+                    transparent 20%);
+            z-index: -1;
         }
 
         .star {
@@ -78,6 +109,20 @@
             background-color: white;
             border-radius: 50%;
             animation: twinkle 5s infinite;
+        }
+
+        .form-input {
+            background: rgba(22, 33, 62, 0.5);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            border-radius: 8px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            border-color: rgba(14, 165, 233, 0.7);
+            box-shadow: 0 0 10px rgba(14, 165, 233, 0.3);
+            outline: none;
         }
 
         @keyframes twinkle {
@@ -100,25 +145,15 @@
             text-shadow: 0 0 10px rgba(14, 165, 233, 0.7);
         }
 
-        .login-card {
+        .card-hover {
+            transition: all 0.3s ease;
             background: rgba(26, 26, 46, 0.7);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(14, 165, 233, 0.3);
-            border-radius: 15px;
         }
 
-        .form-input {
-            background: rgba(22, 33, 62, 0.5);
-            border: 1px solid rgba(14, 165, 233, 0.3);
-            border-radius: 8px;
-            color: white;
-            transition: all 0.3s ease;
-        }
-
-        .form-input:focus {
-            border-color: rgba(14, 165, 233, 0.7);
-            box-shadow: 0 0 10px rgba(14, 165, 233, 0.3);
-            outline: none;
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(14, 165, 233, 0.3);
         }
 
         .nav-link {
@@ -126,7 +161,7 @@
         }
 
         .nav-link::after {
-            content: '';
+            content: "";
             position: absolute;
             bottom: -5px;
             left: 0;
@@ -140,6 +175,39 @@
             width: 100%;
         }
 
+        .planet-card {
+            background: rgba(22, 33, 62, 0.7);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .planet-card:hover {
+            border-color: rgba(14, 165, 233, 0.7);
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
+        }
+
+        .accommodation {
+            background: rgba(22, 33, 62, 0.7);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .accommodation:hover {
+            border-color: rgba(14, 165, 233, 0.7);
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.15);
+            cursor: pointer;
+        }
+
+        .selected {
+            border-color: rgba(14, 165, 233, 0.7);
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
+        }
+
+
         .btn-primary {
             background: linear-gradient(to right, #0ea5e9, #8b5cf6);
             transition: all 0.3s ease;
@@ -150,24 +218,80 @@
             box-shadow: 0 5px 15px rgba(14, 165, 233, 0.4);
         }
 
-        #loginBtn:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-            transform: none !important;
-        }
-
-        .mobile-dropdown {
+        .mobile-menu {
             transition: all 0.3s ease;
             max-height: 0;
             overflow: hidden;
-            opacity: 0;
         }
 
-        .mobile-dropdown.show {
-            max-height: 100px;
-            opacity: 1;
-            padding-top: 0.5rem;
-            padding-bottom: 0.5rem;
+        .mobile-menu.open {
+            max-height: 300px;
+        }
+
+        .form-in {
+            gap: 1rem;
+        }
+
+        .Destination-Selc option {
+            background-color: #161c34;
+        }
+
+        .input-control.success input,
+        .input-control.success textarea {
+            border-color: #10b981 !important;
+        }
+
+        .input-control.error input,
+        .input-control.error textarea {
+            border-color: #ef4444 !important;
+            animation: shake 0.4s ease;
+        }
+
+        .input-control .error {
+            color: #ef4444;
+            font-size: 12px;
+            min-height: 16px;
+            margin-top: 4px;
+            display: block;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-5px);
+            }
+
+            75% {
+                transform: translateX(5px);
+            }
+        }
+
+
+        @media screen and (max-width: 767px) {
+            .form-in {
+                gap: 0;
+            }
+
+            .planet-card {
+                display: flex;
+                flex-direction: column;
+                /* align-items: center; */
+                justify-content: center;
+                text-align: center;
+
+            }
+
+            .radio-op {
+
+                align-items: center;
+                justify-content: center;
+
+            }
         }
     </style>
 </head>
@@ -175,6 +299,7 @@
 <body class="text-white font-exo min-h-screen">
     <!-- Stars Background -->
     <div id="stars-container"></div>
+
     <!-- Navigation -->
     <nav class="bg-space-dark/80 backdrop-blur-md border-b border-neon-blue/20 sticky top-0 z-50">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
@@ -193,7 +318,6 @@
                 <a href="about.html" class="nav-link hover:text-neon-blue transition-colors">About</a>
                 <a id="desktopLoginLink" href="login.html"
                     class="nav-link hover:text-neon-blue transition-colors">Login</a>
-                <!-- User Icon + Dropdown (hidden by default) -->
                 <div class="relative hidden" id="userBtnWrapper">
                     <button id="userBtn"
                         class="text-white hover:text-neon-blue transition-colors focus:outline-none p-1">
@@ -207,7 +331,7 @@
                                 <span class="font-semibold">username:</span>
                                 <span id="desktopUsername" class="font-medium">KARA</span>
                             </div>
-                            <a href="mybooking.html"><button class="text-white w-full hover:underline">My Booking</button></a>
+                            <a href="mybooking.html"><button id="logoutBtn" class="text-white w-full ">My booking</button></a>
                             <button id="logoutBtn" class="text-neon-cyan hover:underline w-full">Log-out</button>
                         </div>
                     </div>
@@ -231,93 +355,19 @@
                     class="hover:text-neon-blue transition-colors py-2 border-b border-neon-blue/20">Booking</a>
                 <a href="about.html"
                     class="hover:text-neon-blue transition-colors py-2 border-b border-neon-blue/20">About</a>
-                <!-- Login (only when NOT logged in) -->
                 <a id="mobileLoginLink" href="login.html" class="hover:text-neon-blue transition-colors py-2">Login</a>
-                <!-- Logout (only when logged in) -->
                 <a id="mobileLogoutLink" class="hover:text-neon-blue transition-colors py-2 hidden">Log-out</a>
             </div>
         </div>
     </nav>
+
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8 relative z-10">
-        <div class="max-w-md mx-auto py-12">
-            <!-- Login Card -->
-            <div class="login-card p-8">
-                <div class="text-center mb-8">
-                    <div
-                        class="w-20 h-20 rounded-full bg-gradient-to-r from-neon-blue to-neon-purple flex items-center justify-center mx-auto mb-4 glow">
-                        <i class="fas fa-user-astronaut text-white text-2xl"></i>
-                    </div>
-                    <h1 class="font-orbitron text-3xl mb-2 text-glow">SpaceVoyager Login</h1>
-                    <p class="text-gray-300">Access your account and journey details</p>
-                </div>
-                <form class="space-y-6">
-                    <div>
-                        <label class="block text-gray-300 mb-2">Email Address</label>
-                        <input type="text" id="email" class="form-input w-full px-4 py-3" placeholder="Enter your email"
-                            autocomplete="off">
-                        <div id="email-feedback" class="text-sm mt-1"></div>
-                    </div>
-                    <div>
-                        <label class="block text-gray-300 mb-2">Password</label>
-                        <input type="password" id="password" class="form-input w-full px-4 py-3"
-                            placeholder="Enter your password" autocomplete="off">
-                        <div id="password-feedback" class="text-sm mt-1"></div>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center">
-                            <input type="checkbox" id="remember" class="mr-2">
-                            <label for="remember" class="text-gray-300 text-sm">Remember me</label>
-                        </div>
-                        <a href="#" class="text-neon-blue text-sm hover:underline">Forgot password?</a>
-                    </div>
-                    <button type="submit" id="loginBtn"
-                        class="btn-primary text-white w-full py-3 rounded-lg font-bold glow" disabled>
-                        Login to Account
-                    </button>
-                </form>
-                <div class="mt-6 pt-6 border-t border-neon-blue/20">
-                    <p class="text-gray-400 text-center">
-                        Don't have an account?
-                        <a href="#" class="text-neon-blue hover:underline">Sign up now</a>
-                    </p>
-                </div>
-            </div>
-            <!-- Features -->
-            <div class="mt-12 grid grid-cols-1 gap-6">
-                <div class="flex items-start">
-                    <div
-                        class="w-10 h-10 rounded-full bg-gradient-to-r from-neon-cyan to-neon-blue flex items-center justify-center mr-4 mt-1">
-                        <i class="fas fa-ticket-alt text-white"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-orbitron text-lg mb-1">Manage Your Bookings</h3>
-                        <p class="text-gray-300 text-sm">View and modify your upcoming space journeys</p>
-                    </div>
-                </div>
-                <div class="flex items-start">
-                    <div
-                        class="w-10 h-10 rounded-full bg-gradient-to-r from-neon-purple to-pink-500 flex items-center justify-center mr-4 mt-1">
-                        <i class="fas fa-user-check text-white"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-orbitron text-lg mb-1">Training Progress</h3>
-                        <p class="text-gray-300 text-sm">Track your space travel preparation status</p>
-                    </div>
-                </div>
-                <div class="flex items-start">
-                    <div
-                        class="w-10 h-10 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500 flex items-center justify-center mr-4 mt-1">
-                        <i class="fas fa-star text-white"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-orbitron text-lg mb-1">Voyager Rewards</h3>
-                        <p class="text-gray-300 text-sm">Earn points and unlock exclusive benefits</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <form id="bookingForm" class="planet-card p-8 bg-[#17172b]">
+            
+        </form>
     </main>
+
     <!-- Footer -->
     <footer class="bg-space-dark border-t border-neon-blue/20 py-8 mt-12 relative z-10">
         <div class="container mx-auto px-4">
@@ -330,21 +380,38 @@
                         </div>
                         <span class="font-orbitron text-lg">SpaceVoyager</span>
                     </div>
-                    <p class="text-gray-400 text-sm">© 2023 SpaceVoyager. All rights reserved.</p>
+                    <p class="text-gray-400 text-sm">
+                        © 2023 SpaceVoyager. All rights reserved.
+                    </p>
                 </div>
+
                 <div class="flex space-x-6 mb-4 md:mb-0">
-                    <a href="#" class="text-gray-400 hover:text-neon-blue transition-colors text-xl"><i
-                            class="fab fa-twitter"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-neon-blue transition-colors text-xl"><i
-                            class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-neon-blue transition-colors text-xl"><i
-                            class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-neon-blue transition-colors text-xl">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-neon-blue transition-colors text-xl">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-neon-blue transition-colors text-xl">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-neon-blue transition-colors text-xl">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+
+                <div class="text-center md:text-right">
+                    <p class="text-gray-400 text-sm">
+                        Contact us: info@spacevoyager.com
+                    </p>
+                    <p class="text-gray-400 text-sm">+1 (800) SPACE-TRIP</p>
                 </div>
             </div>
         </div>
     </footer>
+
     <script src="JavaScript/index.js" defer></script>
-    <script src="JavaScript/login.js" defer></script>
+    <script src="JavaScript/booking.js" defer></script>
 </body>
 
 </html>
