@@ -255,26 +255,42 @@
                 </div>
                 <a href="index.html" class="font-orbitron text-xl font-bold text-glow">SpaceVoyager</a>
             </div>
-
-            <div class="hidden md:flex space-x-8">
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 items-center">
                 <a href="index.html" class="nav-link hover:text-neon-blue transition-colors">Home</a>
                 <a href="destinations.html" class="nav-link hover:text-neon-blue transition-colors">Destinations</a>
                 <a href="booking.html" class="nav-link hover:text-neon-blue transition-colors">Booking</a>
                 <a href="about.html" class="nav-link hover:text-neon-blue transition-colors">About</a>
-                <a href="login.html" class="nav-link hover:text-neon-blue transition-colors">Login</a>
+                <a id="desktopLoginLink" href="login.html"
+                    class="nav-link hover:text-neon-blue transition-colors">Login</a>
+                <div class="relative hidden" id="userBtnWrapper">
+                    <button id="userBtn"
+                        class="text-white hover:text-neon-blue transition-colors focus:outline-none p-1">
+                        <i class="fas fa-user-astronaut text-2xl"></i>
+                    </button>
+                    <div id="userDropdown"
+                        class="absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-space-blue/90 backdrop-blur-md border border-neon-blue/30 rounded-lg p-4 opacity-0 pointer-events-none transition-opacity duration-200 z-50">
+                        <div class="text-center text-sm text-white">
+                            <div class="flex items-center justify-center gap-2 mb-2">
+                                <i class="fas fa-user-astronaut text-neon-blue"></i>
+                                <span class="font-semibold">username:</span>
+                                <span id="desktopUsername" class="font-medium">KARA</span>
+                            </div>
+                            <button id="logoutBtn" class="text-neon-cyan hover:underline w-full">Log-out</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <!-- Mobile menu button -->
-            <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-white focus:outline-none">
+            <!-- Mobile Hamburger -->
+            <div class="md:hidden flex items-center space-x-3">
+                <button id="hamburgerBtn" class="text-white focus:outline-none">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
-
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="mobile-menu md:hidden bg-space-dark/90 backdrop-blur-md">
-            <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+        <div id="mobileMenu" class="md:hidden bg-space-dark/90 backdrop-blur-md hidden">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-2">
                 <a href="index.html"
                     class="hover:text-neon-blue transition-colors py-2 border-b border-neon-blue/20">Home</a>
                 <a href="destinations.html"
@@ -283,7 +299,8 @@
                     class="hover:text-neon-blue transition-colors py-2 border-b border-neon-blue/20">Booking</a>
                 <a href="about.html"
                     class="hover:text-neon-blue transition-colors py-2 border-b border-neon-blue/20">About</a>
-                <a href="login.html" class="hover:text-neon-blue transition-colors py-2">Login</a>
+                <a id="mobileLoginLink" href="login.html" class="hover:text-neon-blue transition-colors py-2">Login</a>
+                <a id="mobileLogoutLink" class="hover:text-neon-blue transition-colors py-2 hidden">Log-out</a>
             </div>
         </div>
     </nav>
@@ -445,45 +462,8 @@
         </div>
     </footer>
 
-    <script>
-        // Create stars background
-        function createStars() {
-            const container = document.getElementById("stars-container");
-            const starCount = 150;
-
-            for (let i = 0; i < starCount; i++) {
-                const star = document.createElement("div");
-                star.classList.add("star");
-
-                // Random size between 1-3px
-                const size = Math.random() * 2 + 1;
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-
-                // Random position
-                star.style.left = `${Math.random() * 100}%`;
-                star.style.top = `${Math.random() * 100}%`;
-
-                // Random animation delay
-                star.style.animationDelay = `${Math.random() * 5}s`;
-
-                container.appendChild(star);
-            }
-        }
-
-        // Mobile menu toggle
-        document
-            .getElementById("mobile-menu-button")
-            .addEventListener("click", function () {
-                const menu = document.getElementById("mobile-menu");
-                menu.classList.toggle("open");
-            });
-
-        // Initialize on page load
-        document.addEventListener("DOMContentLoaded", function () {
-            createStars();
-        });
-    </script>
+    <script src="JavaScript/index.js" defer></script>
+    <script src="JavaScript/login.js" defer></script>
 </body>
 
 </html>

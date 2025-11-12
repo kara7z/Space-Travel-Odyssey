@@ -118,13 +118,26 @@
             cursor: not-allowed;
             transform: none !important;
         }
+
+        .mobile-dropdown {
+            transition: all 0.3s ease;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+        }
+
+        .mobile-dropdown.show {
+            max-height: 100px;
+            opacity: 1;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
     </style>
 </head>
 
 <body class="text-white font-exo min-h-screen">
     <!-- Stars Background -->
     <div id="stars-container"></div>
-
     <!-- Navigation -->
     <nav class="bg-space-dark/80 backdrop-blur-md border-b border-neon-blue/20 sticky top-0 z-50">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
@@ -135,36 +148,58 @@
                 </div>
                 <a href="index.html" class="font-orbitron text-xl font-bold text-glow">SpaceVoyager</a>
             </div>
-
-            <div class="hidden md:flex space-x-8">
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 items-center">
                 <a href="index.html" class="nav-link hover:text-neon-blue transition-colors">Home</a>
                 <a href="destinations.html" class="nav-link hover:text-neon-blue transition-colors">Destinations</a>
                 <a href="booking.html" class="nav-link hover:text-neon-blue transition-colors">Booking</a>
                 <a href="about.html" class="nav-link hover:text-neon-blue transition-colors">About</a>
-                <a href="login.html" class="nav-link hover:text-neon-blue transition-colors">Login</a>
-                <button>
-                    <i class="fas fa-user-astronaut text-white text-2xl"></i>
-                </button>
+                <a id="desktopLoginLink" href="login.html"
+                    class="nav-link hover:text-neon-blue transition-colors">Login</a>
+                <!-- User Icon + Dropdown (hidden by default) -->
+                <div class="relative hidden" id="userBtnWrapper">
+                    <button id="userBtn"
+                        class="text-white hover:text-neon-blue transition-colors focus:outline-none p-1">
+                        <i class="fas fa-user-astronaut text-2xl"></i>
+                    </button>
+                    <div id="userDropdown"
+                        class="absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-space-blue/90 backdrop-blur-md border border-neon-blue/30 rounded-lg p-4 opacity-0 pointer-events-none transition-opacity duration-200 z-50">
+                        <div class="text-center text-sm text-white">
+                            <div class="flex items-center justify-center gap-2 mb-2">
+                                <i class="fas fa-user-astronaut text-neon-blue"></i>
+                                <span class="font-semibold">username:</span>
+                                <span id="desktopUsername" class="font-medium">KARA</span>
+                            </div>
+                            <button id="logoutBtn" class="text-neon-cyan hover:underline w-full">Log-out</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-
-            <div class="md:hidden">
-                <button class="text-white focus:outline-none">
+            <!-- Mobile Hamburger -->
+            <div class="md:hidden flex items-center space-x-3">
+                <button id="hamburgerBtn" class="text-white focus:outline-none">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
-
-    </nav>
-    <div class="Porfile grid align-center bg-blue-500 w-fit p-4">
-        <div>
-            <span>username:</span>
-            <span>KARA</span>
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="md:hidden bg-space-dark/90 backdrop-blur-md hidden">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-2">
+                <a href="index.html"
+                    class="hover:text-neon-blue transition-colors py-2 border-b border-neon-blue/20">Home</a>
+                <a href="destinations.html"
+                    class="hover:text-neon-blue transition-colors py-2 border-b border-neon-blue/20">Destinations</a>
+                <a href="booking.html"
+                    class="hover:text-neon-blue transition-colors py-2 border-b border-neon-blue/20">Booking</a>
+                <a href="about.html"
+                    class="hover:text-neon-blue transition-colors py-2 border-b border-neon-blue/20">About</a>
+                <!-- Login (only when NOT logged in) -->
+                <a id="mobileLoginLink" href="login.html" class="hover:text-neon-blue transition-colors py-2">Login</a>
+                <!-- Logout (only when logged in) -->
+                <a id="mobileLogoutLink" class="hover:text-neon-blue transition-colors py-2 hidden">Log-out</a>
+            </div>
         </div>
-        <span>Log-out</span>
-
-    </div>
-
+    </nav>
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8 relative z-10">
         <div class="max-w-md mx-auto py-12">
@@ -178,7 +213,6 @@
                     <h1 class="font-orbitron text-3xl mb-2 text-glow">SpaceVoyager Login</h1>
                     <p class="text-gray-300">Access your account and journey details</p>
                 </div>
-
                 <form class="space-y-6">
                     <div>
                         <label class="block text-gray-300 mb-2">Email Address</label>
@@ -186,14 +220,12 @@
                             autocomplete="off">
                         <div id="email-feedback" class="text-sm mt-1"></div>
                     </div>
-
                     <div>
                         <label class="block text-gray-300 mb-2">Password</label>
                         <input type="password" id="password" class="form-input w-full px-4 py-3"
                             placeholder="Enter your password" autocomplete="off">
                         <div id="password-feedback" class="text-sm mt-1"></div>
                     </div>
-
                     <div class="flex items-center justify-between">
                         <div class="flex items-center">
                             <input type="checkbox" id="remember" class="mr-2">
@@ -201,13 +233,11 @@
                         </div>
                         <a href="#" class="text-neon-blue text-sm hover:underline">Forgot password?</a>
                     </div>
-
                     <button type="submit" id="loginBtn"
                         class="btn-primary text-white w-full py-3 rounded-lg font-bold glow" disabled>
                         Login to Account
                     </button>
                 </form>
-
                 <div class="mt-6 pt-6 border-t border-neon-blue/20">
                     <p class="text-gray-400 text-center">
                         Don't have an account?
@@ -215,7 +245,6 @@
                     </p>
                 </div>
             </div>
-
             <!-- Features -->
             <div class="mt-12 grid grid-cols-1 gap-6">
                 <div class="flex items-start">
@@ -228,7 +257,6 @@
                         <p class="text-gray-300 text-sm">View and modify your upcoming space journeys</p>
                     </div>
                 </div>
-
                 <div class="flex items-start">
                     <div
                         class="w-10 h-10 rounded-full bg-gradient-to-r from-neon-purple to-pink-500 flex items-center justify-center mr-4 mt-1">
@@ -239,7 +267,6 @@
                         <p class="text-gray-300 text-sm">Track your space travel preparation status</p>
                     </div>
                 </div>
-
                 <div class="flex items-start">
                     <div
                         class="w-10 h-10 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500 flex items-center justify-center mr-4 mt-1">
@@ -253,7 +280,6 @@
             </div>
         </div>
     </main>
-
     <!-- Footer -->
     <footer class="bg-space-dark border-t border-neon-blue/20 py-8 mt-12 relative z-10">
         <div class="container mx-auto px-4">
@@ -268,49 +294,19 @@
                     </div>
                     <p class="text-gray-400 text-sm">© 2023 SpaceVoyager. All rights reserved.</p>
                 </div>
-
                 <div class="flex space-x-6 mb-4 md:mb-0">
-                    <a href="#" class="text-gray-400 hover:text-neon-blue transition-colors text-xl">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-neon-blue transition-colors text-xl">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-neon-blue transition-colors text-xl">
-                        <i class="fab fa-facebook"></i>
-                    </a>
+                    <a href="#" class="text-gray-400 hover:text-neon-blue transition-colors text-xl"><i
+                            class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-neon-blue transition-colors text-xl"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-neon-blue transition-colors text-xl"><i
+                            class="fab fa-facebook"></i></a>
                 </div>
             </div>
         </div>
     </footer>
+    <script src="JavaScript/index.js" defer></script>
     <script src="JavaScript/login.js" defer></script>
-    <script>
-        // Create stars background
-        function createStars() {
-            const container = document.getElementById('stars-container');
-            const starCount = 150;
-
-            for (let i = 0; i < starCount; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
-
-                const size = Math.random() * 2 + 1;
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-
-                star.style.left = `${Math.random() * 100}%`;
-                star.style.top = `${Math.random() * 100}%`;
-
-                star.style.animationDelay = `${Math.random() * 5}s`;
-
-                container.appendChild(star);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            createStars();
-        });
-    </script>
 </body>
 
 </html>
