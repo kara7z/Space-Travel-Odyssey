@@ -7,23 +7,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const departureDateInput = document.getElementById('departureDate');
   const message = document.getElementById('message');
   const destinationSelect = document.getElementById('destination');
+  const totalCounter = document.getElementById('totalCounter');
   let passengerCount = 1;
   let maxPassengers = 1;
   let destinationsData = [];
   let accommodationsData = []; 
+  let currentDestinationPrice = 0;
+  let currentAccommodationPrice = 0;
+  let currentDestinationDuration = 0;
 
-  // Check if user is logged in - matching your login system
+  // if user is logged in
   const isUserLoggedIn = () => {
     return localStorage.getItem('loggedIn') === 'true';
   };
 
-  // Check login status and update form visibility
+  // login status 
   const checkLoginStatus = () => {
     if (!isUserLoggedIn()) {
-      // Hide the form and show login message
       form.style.display = 'none';
       
-      // Create and show login required message
       const loginMessage = document.createElement('div');
       loginMessage.className = 'text-center py-12 planet-card p-8 bg-[#17172b]';
       loginMessage.innerHTML = `
@@ -42,18 +44,83 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       `;
       
-      // Insert the login message after the hero section
       const main = document.querySelector('main');
       const heroSection = document.querySelector('section.py-16');
       main.insertBefore(loginMessage, heroSection.nextSibling);
     } else {
-      // User is logged in, ensure form is visible
       form.style.display = 'block';
     }
   };
 
-  // Check login status on page load
   checkLoginStatus();
+
+  // Calculate total price
+  const updateTotalPrice = () => {
+    const basePrice = currentDestinationPrice; 
+    const accommodationPrice = currentAccommodationPrice * currentDestinationDuration * passengerCount;
+    const totalPrice = basePrice + accommodationPrice;
+    
+    totalCounter.textContent = totalPrice.toLocaleString();
+  };
+
+  const extractDuration = (travelDuration) => {
+    const durationLower = travelDuration.toLowerCase();
+    
+    const rangeMatch = durationLower.match(/\((\d+)-(\d+)\)\s*(years?|months?|weeks?|days?)/);
+    if (rangeMatch) {
+      const min = parseInt(rangeMatch[1]);
+      const max = parseInt(rangeMatch[2]);
+      const unit = rangeMatch[3];
+      const duration = max;
+      
+      console.log(`Range detected: ${min}-${max} ${unit}, using ${duration} ${unit}`);
+      
+      // Convert based on unit
+      switch(unit) {
+        case 'year':
+        case 'years':
+          return duration * 365;
+        case 'month':
+        case 'months':
+          return duration * 30;
+        case 'week':
+        case 'weeks':
+          return duration * 7;
+        case 'day':
+        case 'days':
+          return duration;
+        default:
+          return duration;
+      }
+    }
+    
+    // Check for years
+    const yearMatch = durationLower.match(/(\d+)\s*years?/);
+    if (yearMatch) {
+      return parseInt(yearMatch[1]) * 365;
+    }
+    
+    // Check for months
+    const monthMatch = durationLower.match(/(\d+)\s*months?/);
+    if (monthMatch) {
+      return parseInt(monthMatch[1]) * 30;
+    }
+    
+    // Check for weeks
+    const weekMatch = durationLower.match(/(\d+)\s*weeks?/);
+    if (weekMatch) {
+      return parseInt(weekMatch[1]) * 7;
+    }
+    
+    // Check for days
+    const dayMatch = durationLower.match(/(\d+)\s*days?/);
+    if (dayMatch) {
+      return parseInt(dayMatch[1]);
+    }
+    
+    console.warn(`Could not parse duration from: "${travelDuration}". Defaulting to 1 day.`);
+    return 1;
+  };
 
   /* Fetch destinations */
   fetch('data/destinations.json').then(res => res.json())
@@ -95,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  // Selected DEstination
+  // Selected Destination
   destinationSelect.addEventListener('change', () => {
     const selectedId = destinationSelect.value; 
 
@@ -105,7 +172,18 @@ document.addEventListener('DOMContentLoaded', () => {
         card.classList.remove('selected');
       });
       localStorage.removeItem('selectedAccommodation');
+      currentDestinationPrice = 0;
+      currentDestinationDuration = 0;
+      updateTotalPrice();
       return;
+    }
+
+    // Get the selected destination price and duration
+    const selectedDestination = destinationsData.find(dest => dest.id === selectedId);
+    if (selectedDestination) {
+      currentDestinationPrice = selectedDestination.price;
+      currentDestinationDuration = extractDuration(selectedDestination.travelDuration);
+      console.log(`Destination: ${selectedDestination.name}, Duration: ${currentDestinationDuration} days, Price: $${currentDestinationPrice}`);
     }
 
     document.querySelectorAll('.accommodation').forEach(card => {
@@ -121,7 +199,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (selected && selected.style.display === 'none') {
       selected.classList.remove('selected');
       localStorage.removeItem('selectedAccommodation');
+      currentAccommodationPrice = 0;
     }
+
+    updateTotalPrice();
   });
 
   // passenger radio
@@ -135,8 +216,10 @@ document.addEventListener('DOMContentLoaded', () => {
         passengerCount--;
       }
       addPassengerBtn.style.display = maxPassengers > 1 ? 'block' : 'none';
+      updateTotalPrice();
     });
   });
+
   // Accommodation Selection
   if (selectionContainer) {
     selectionContainer.addEventListener('click', (e) => {
@@ -145,11 +228,26 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.accommodation').forEach(c => c.classList.remove('selected'));
       card.classList.add('selected');
       localStorage.setItem('selectedAccommodation', card.id);
+      
+      // Get the selected accommodation price
+      const selectedAccommodation = accommodationsData.find(accom => accom.id === card.id);
+      if (selectedAccommodation) {
+        currentAccommodationPrice = selectedAccommodation.pricePerDay;
+      }
+      
+      updateTotalPrice();
     });
     // Restore saved
     const saved = localStorage.getItem('selectedAccommodation');
-    if (saved) document.getElementById(saved)?.classList.add('selected');
+    if (saved) {
+      const savedAccommodation = accommodationsData.find(accom => accom.id === saved);
+      if (savedAccommodation) {
+        currentAccommodationPrice = savedAccommodation.pricePerDay;
+      }
+      document.getElementById(saved)?.classList.add('selected');
+    }
   }
+
   // Add Passenger Button
   addPassengerBtn.addEventListener('click', () => {
     if (passengerCount >= maxPassengers) {
@@ -183,7 +281,9 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     `;
     passengersContainer.appendChild(fields);
+    updateTotalPrice();
   });
+
   // error
   const setError = (input, msg) => {
     const control = input.parentElement;
@@ -287,11 +387,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check if user is logged in
     if (!isUserLoggedIn()) {
       alert('You need to sign in to complete your booking. Please log in to continue.');
-      checkLoginStatus(); // This will hide the form and show login message
+      checkLoginStatus();
       return;
     }
     
-
     if (!validateForm()) return;
     // Collect Data
     const data = {
@@ -300,7 +399,8 @@ document.addEventListener('DOMContentLoaded', () => {
       passengers: passengerCount,
       accommodation: document.querySelector('.accommodation.selected')?.id || null,
       specialRequirements: message.value.trim(),
-      travelers: []
+      travelers: [],
+      totalPrice: currentDestinationPrice + (currentAccommodationPrice * currentDestinationDuration * passengerCount)
     };
     for (let i = 1; i <= passengerCount; i++) {
       data.travelers.push({
@@ -331,5 +431,12 @@ document.addEventListener('DOMContentLoaded', () => {
     maxPassengers = 1;
     document.getElementById('solo').checked = true;
     addPassengerBtn.style.display = 'none';
+    currentDestinationPrice = 0;
+    currentAccommodationPrice = 0;
+    currentDestinationDuration = 0;
+    updateTotalPrice();
   });
+
+  // Initialize total price
+  updateTotalPrice();
 });
