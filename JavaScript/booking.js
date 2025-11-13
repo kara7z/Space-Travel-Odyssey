@@ -10,37 +10,79 @@ document.addEventListener('DOMContentLoaded', () => {
   let passengerCount = 1;
   let maxPassengers = 1;
   let destinationsData = [];
-  let accommodationsData = []; // For prices and details
+  let accommodationsData = []; 
+
+  // Check if user is logged in - matching your login system
+  const isUserLoggedIn = () => {
+    return localStorage.getItem('loggedIn') === 'true';
+  };
+
+  // Check login status and update form visibility
+  const checkLoginStatus = () => {
+    if (!isUserLoggedIn()) {
+      // Hide the form and show login message
+      form.style.display = 'none';
+      
+      // Create and show login required message
+      const loginMessage = document.createElement('div');
+      loginMessage.className = 'text-center py-12 planet-card p-8 bg-[#17172b]';
+      loginMessage.innerHTML = `
+        <div class="mb-6">
+          <i class="fas fa-user-astronaut text-6xl text-neon-blue mb-4"></i>
+          <h2 class="font-orbitron text-3xl text-glow mb-4">Sign In Required</h2>
+          <p class="text-xl text-gray-300 mb-6">You need to be signed in to complete your space journey booking.</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="login.html" class="btn-primary text-white px-8 py-4 rounded-lg font-bold text-lg glow text-center">
+            Sign In Now
+          </a>
+          <a href="index.html" class="bg-space-blue text-white px-8 py-4 rounded-lg font-bold text-lg border border-neon-blue/30 hover:bg-space-purple transition-colors text-center">
+            Return Home
+          </a>
+        </div>
+      `;
+      
+      // Insert the login message after the hero section
+      const main = document.querySelector('main');
+      const heroSection = document.querySelector('section.py-16');
+      main.insertBefore(loginMessage, heroSection.nextSibling);
+    } else {
+      // User is logged in, ensure form is visible
+      form.style.display = 'block';
+    }
+  };
+
+  // Check login status on page load
+  checkLoginStatus();
 
   /* Fetch destinations */
-  fetch('data/destinations.json')
-    .then(r => r.ok ? r.json() : Promise.reject('Network error'))
+  fetch('data/destinations.json').then(res => res.json())
     .then(data => {
       destinationsData = data.destinations;
+      data.destinations.sort((a, b) => a.price - b.price);
       const optionsHTML = data.destinations.map(dest =>
-        `<option value="${dest.id}">${dest.name} – $${dest.price.toLocaleString()} ${dest.currency} – ${dest.distance}</option>`
+        `<option value="${dest.id}">${dest.name} – $${dest.price.toLocaleString()} ${dest.currency} – ${dest.travelDuration}</option>`
       ).join('');
       destinationSelect.insertAdjacentHTML('beforeend', optionsHTML);
     })
-    .catch(console.error);
 
-  /* Fetch accommodations with prices/details */
-  fetch('data/accommodations.json')
-    .then(r => r.ok ? r.json() : Promise.reject('Network error'))
+  /* Fetch accommodations*/
+  fetch('data/accommodations.json').then(res => res.json())
     .then(data => {
       accommodationsData = data.accommodations;
-      renderAccommodationCards(); // Generate cards dynamically
+      renderAccommodationCards(); 
     })
     .catch(console.error);
 
-  /* Dynamically render accommodation cards from JSON */
+  // REnder
   const renderAccommodationCards = () => {
-    selectionContainer.innerHTML = ''; // Clear any hard-coded cards
+    selectionContainer.innerHTML = '';
+    accommodationsData.sort((a, b) => a.pricePerDay - b.pricePerDay);
     accommodationsData.forEach(accom => {
       const card = document.createElement('div');
       card.id = accom.id;
       card.className = 'px-6 py-3 accommodation text-2xl';
-      card.style.display = 'none'; // Hidden until destination selected
+      card.style.display = 'none'; 
       card.innerHTML = `
         <h3 class="text-[#0ea8ed] font-orbitron">${accom.name}</h3>
         <p class="text-xl font-light">${accom.shortDescription}</p>
@@ -53,29 +95,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  // Make accommodations depend on selected destination (UPDATED LOGIC)
+  // Selected DEstination
   destinationSelect.addEventListener('change', () => {
-    const selectedId = destinationSelect.value; // e.g., "mars"
+    const selectedId = destinationSelect.value; 
 
-    // If no destination is selected, hide all and clear selection
     if (!selectedId) {
-        document.querySelectorAll('.accommodation').forEach(card => {
-            card.style.display = 'none';
-            card.classList.remove('selected');
-        });
-        localStorage.removeItem('selectedAccommodation');
-        return;
+      document.querySelectorAll('.accommodation').forEach(card => {
+        card.style.display = 'none';
+        card.classList.remove('selected');
+      });
+      localStorage.removeItem('selectedAccommodation');
+      return;
     }
 
-    // Loop through each accommodation CARD
     document.querySelectorAll('.accommodation').forEach(card => {
-        // Find the matching data for this card from accommodationsData
-        const accomData = accommodationsData.find(a => a.id === card.id);
-        if (!accomData) return;
+      const accomData = accommodationsData.find(a => a.id === card.id);
+      if (!accomData) return;
 
-        // Check if the selected destination (selectedId) is in this accommodation's "availableOn" array
-        const isAvailable = accomData.availableOn.includes(selectedId);
-        card.style.display = isAvailable ? 'block' : 'none';
+      const isAvailable = accomData.availableOn.includes(selectedId);
+      card.style.display = isAvailable ? 'block' : 'none';
     });
 
     // Deselect if hidden
@@ -245,6 +283,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // Submit
   form.addEventListener('submit', (e) => {
     e.preventDefault();
+    
+    // Check if user is logged in
+    if (!isUserLoggedIn()) {
+      alert('You need to sign in to complete your booking. Please log in to continue.');
+      checkLoginStatus(); // This will hide the form and show login message
+      return;
+    }
+    
+
     if (!validateForm()) return;
     // Collect Data
     const data = {
@@ -274,7 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     document.querySelectorAll('.accommodation').forEach(c => {
       c.classList.remove('selected');
-      c.style.display = 'block'; // Reset visibility
+      c.style.display = 'block'; 
     });
     localStorage.removeItem('selectedAccommodation');
     while (passengersContainer.children.length > 1) {

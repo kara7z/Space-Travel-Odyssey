@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const mobileLogoutLink   = document.getElementById('mobileLogoutLink');
   const desktopUsername    = document.getElementById('desktopUsername');
 
-  // === Update UI based on login state ===
   function updateUI() {
     const loggedIn = localStorage.getItem('loggedIn') === 'true';
     const username = localStorage.getItem('username') || 'User';
@@ -19,14 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
     desktopLoginLink?.classList.toggle('hidden', loggedIn);
     if (desktopUsername) desktopUsername.textContent = username;
 
-    // Mobile – show only ONE link
+    // Mobile 
     mobileLoginLink?.classList.toggle('hidden', loggedIn);
     mobileLogoutLink?.classList.toggle('hidden', !loggedIn);
   }
 
-  updateUI(); // Run on load
+  updateUI(); 
 
-  // === Desktop Dropdown ===
+  // Desktop Dropdown
   const userBtn = document.getElementById('userBtn');
   const userDropdown = document.getElementById('userDropdown');
 
@@ -43,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleDesktop(!isOpen);
   });
 
-  // === Mobile Menu Toggle ===
+  // Mobile Menu Toggle
   const hamburgerBtn = document.getElementById('hamburgerBtn');
   const mobileMenu = document.getElementById('mobileMenu');
 
@@ -51,14 +50,14 @@ document.addEventListener('DOMContentLoaded', () => {
     mobileMenu?.classList.toggle('hidden');
   });
 
-  // === Close dropdown on outside click ===
+ 
   document.addEventListener('click', e => {
     if (userBtn && !userBtn.contains(e.target) && userDropdown && !userDropdown.contains(e.target)) {
       toggleDesktop(false);
     }
   });
 
-  // === Logout (both desktop & mobile) ===
+  // Logout 
   function logout() {
     localStorage.removeItem('loggedIn');
     localStorage.removeItem('username');
@@ -69,13 +68,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('logoutBtn')?.addEventListener('click', logout);
   document.getElementById('mobileLogoutLink')?.addEventListener('click', (e) => {
-    e.preventDefault(); // Prevent default <a> navigation
+    e.preventDefault(); 
     logout();
   });
 });
-/* -------------------------------------------------
-   Stars background (only on login page)
-   ------------------------------------------------- */
+/* Stars background */
 function createStars() {
   const container = document.getElementById('stars-container');
   if (!container) return;
