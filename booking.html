@@ -36,6 +36,7 @@
         };
     </script>
     <style>
+        /* Your existing CSS styles here */
         :root {
             /* Color Palette */
             --space-dark: #0a0a18;
@@ -72,7 +73,6 @@
 
         html {
             scroll-behavior: smooth;
-
         }
 
         body {
@@ -207,7 +207,6 @@
             box-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
         }
 
-
         .btn-primary {
             background: linear-gradient(to right, #0ea5e9, #8b5cf6);
             transition: all 0.3s ease;
@@ -271,7 +270,6 @@
             }
         }
 
-
         @media screen and (max-width: 767px) {
             .form-in {
                 gap: 0;
@@ -280,17 +278,26 @@
             .planet-card {
                 display: flex;
                 flex-direction: column;
-                /* align-items: center; */
                 justify-content: center;
                 text-align: center;
-
             }
 
             .radio-op {
-
                 align-items: center;
                 justify-content: center;
+            }
 
+            .Destination-Selc {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+
+            .Destination-Selc option {
+                word-break: break-all;
+                white-space: normal;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -331,7 +338,8 @@
                                 <span class="font-semibold">username:</span>
                                 <span id="desktopUsername" class="font-medium">KARA</span>
                             </div>
-                            <a href="mybooking.html"><button class="text-white w-full hover:underline">My Booking</button></a>
+                            <a href="mybooking.html"><button class="text-white w-full hover:underline">My
+                                    Booking</button></a>
                             <button id="logoutBtn" class="text-neon-cyan hover:underline w-full">Log-out</button>
                         </div>
                     </div>
@@ -381,16 +389,12 @@
                 <select name="destination" id="destination" class="form-input w-full px-4 py-3 Destination-Selc"
                     required>
                     <option value="">Select your destination</option>
-                    <option value="The Moon">The Moon</option>
-                    <option value="Mars">Mars</option>
-                    <option value="Europa">Europa</option>
-                    <option value="Titan">Titan</option>
+
                 </select>
             </div>
             <div class="flex flex-col py-6 gap-2 input-control">
                 <label for="departureDate" class="text-xl">Departure Date</label>
-                <input type="date" id="departureDate" name="departureDate" class="form-input w-full px-4 py-3" required
-                    min="2025-11-13" />
+                <input type="date" id="departureDate" name="departureDate" class="form-input w-full px-4 py-3" />
                 <div class="error"></div>
             </div>
             <div>
@@ -409,50 +413,50 @@
                         <label for="group">Group (3-6)</label>
                     </div>
                 </div>
+                <!-- ACCOMMODATION SECTION -->
                 <label class="text-xl">Accommodation Type</label>
-                <div
-                    class="Selection grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 py-5 [grid-template-columns:repeat(auto-fit,minmax(200px,1fr))]">
+                <div class="Selection grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 py-5 [grid-template-columns:repeat(auto-fit,minmax(200px,1fr))]">
                     <div id="standard-cabin" class="px-6 py-3 accommodation text-2xl">
                         <h3 class="text-[#0ea8ed] font-orbitron">Standard Cabin</h3>
-                        <p class=" text-xl font-light">Comfortable private quarters with basic amenities</p>
+                        <p class="text-xl font-light">Comfortable private quarters with basic amenities</p>
                     </div>
                     <div id="luxury-suite" class="px-6 py-3 accommodation text-2xl">
                         <h3 class="text-[#0ea8ed] font-orbitron">Luxury Suite</h3>
-                        <p class=" text-xl font-light">Spacious suite with premium amenities and viewports</p>
+                        <p class="text-xl font-light">Spacious suite with premium amenities and viewports</p>
                     </div>
-                    <div id="zero-g" class=" px-6 py-3 accommodation text-2xl">
+                    <div id="zero-g" class="px-6 py-3 accommodation text-2xl">
                         <h3 class="text-[#0ea8ed] font-orbitron">Zero-G Pod</h3>
-                        <p class=" text-xl font-light">Advanced accommodation with zero-gravity experience</p>
+                        <p class="text-xl font-light">Advanced accommodation with zero-gravity experience</p>
                     </div>
+
                 </div>
             </div>
             <hr class=" border-[rgba(14,165,233,0.3)] border-1 my-6">
             <span class="font-orbitron text-3xl text-glow">Personal Information</span>
             <div id="passengersContainer" class="pt-5">
-                <!-- Initial passenger fields -->
                 <div class="passenger-fields grid grid-cols-1 md:grid-cols-2 form-in" data-passenger="1">
                     <div class="flex flex-col input-control">
                         <label for="fName1" class="text-xl">First Name</label>
                         <input id="fName1" name="fName1" type="text" class="form-input w-full px-4 py-3 my-2"
-                            placeholder="Enter your first name" required />
+                            placeholder="Enter your first name" />
                         <div class="error"></div>
                     </div>
                     <div class="flex flex-col input-control">
                         <label for="lName1" class="text-xl">Last Name</label>
                         <input id="lName1" name="lName1" type="text" class="form-input w-full px-4 py-3 my-2"
-                            placeholder="Enter your last name" required />
+                            placeholder="Enter your last name" />
                         <div class="error"></div>
                     </div>
                     <div class="flex flex-col input-control">
                         <label for="email1" class="text-xl">Email Address</label>
                         <input id="email1" name="email1" type="email" class="form-input w-full px-4 py-3 my-2"
-                            placeholder="Enter your email" required />
+                            placeholder="Enter your email" />
                         <div class="error"></div>
                     </div>
                     <div class="flex flex-col input-control">
                         <label for="phone1" class="text-xl">Phone Number</label>
                         <input id="phone1" name="phone1" type="tel" class="form-input w-full px-4 py-3 my-2"
-                            placeholder="Enter your phone number" required />
+                            placeholder="+212XXXXXXXXX" />
                         <div class="error"></div>
                     </div>
                 </div>
@@ -465,7 +469,7 @@
                     <div class="error"></div>
                 </div>
                 <div class="flex flex-col gap-12">
-                    <button id="addPassengerBtn" type="button" class="bg-[#5b78f1] p-4 rounded-lg glow">
+                    <button id="addPassengerBtn" type="button" class="bg-[#17172b] p-4 rounded-lg glow">
                         Add Passenger
                     </button>
                     <button class="btn-primary text-white px-8 py-4 rounded-lg font-bold text-lg glow" type="submit">
@@ -525,6 +529,8 @@
     </footer>
 
     <script src="JavaScript/index.js" defer></script>
+
+    <!-- Add the booking JavaScript here with proper script tags -->
     <script src="JavaScript/booking.js" defer></script>
 </body>
 
