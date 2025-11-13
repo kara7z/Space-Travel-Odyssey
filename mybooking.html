@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SpaceVoyager — Explore Beyond Earth</title>
+    <title>SpaceVoyager — My Bookings</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap"
@@ -72,7 +72,6 @@
 
         html {
             scroll-behavior: smooth;
-
         }
 
         body {
@@ -207,7 +206,6 @@
             box-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
         }
 
-
         .btn-primary {
             background: linear-gradient(to right, #0ea5e9, #8b5cf6);
             transition: all 0.3s ease;
@@ -271,6 +269,17 @@
             }
         }
 
+        .booking-card {
+            background: rgba(22, 33, 62, 0.7);
+            border: 2px solid rgba(14, 165, 233, 0.3);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .booking-card:hover {
+            border-color: rgba(14, 165, 233, 0.6);
+            box-shadow: 0 0 25px rgba(14, 165, 233, 0.2);
+        }
 
         @media screen and (max-width: 767px) {
             .form-in {
@@ -280,17 +289,13 @@
             .planet-card {
                 display: flex;
                 flex-direction: column;
-                /* align-items: center; */
                 justify-content: center;
                 text-align: center;
-
             }
 
             .radio-op {
-
                 align-items: center;
                 justify-content: center;
-
             }
         }
     </style>
@@ -331,7 +336,7 @@
                                 <span class="font-semibold">username:</span>
                                 <span id="desktopUsername" class="font-medium">KARA</span>
                             </div>
-                            <a href="mybooking.html"><button id="logoutBtn" class="text-white w-full ">My booking</button></a>
+                            <a href="mybooking.html"><button class="text-white w-full hover:underline">My Booking</button></a>
                             <button id="logoutBtn" class="text-neon-cyan hover:underline w-full">Log-out</button>
                         </div>
                     </div>
@@ -363,9 +368,59 @@
 
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8 relative z-10">
-        <form id="bookingForm" class="planet-card p-8 bg-[#17172b]">
-            
-        </form>
+        <!-- Hero Section -->
+        <section class="py-12 md:py-16 text-center">
+            <h1 class="font-orbitron text-4xl md:text-6xl font-bold mb-6 text-glow">
+                My Space Journeys
+            </h1>
+            <p class="text-xl md:text-2xl max-w-2xl mx-auto mb-10 text-gray-300">
+                Manage your upcoming space adventures and review past voyages
+            </p>
+        </section>
+
+        <!-- Bookings Container -->
+        <div id="bookingsContainer" class="max-w-6xl mx-auto">
+            <!-- Content will be dynamically loaded by JavaScript -->
+        </div>
+
+        <!-- Loading State -->
+        <div id="loadingState" class="text-center py-12">
+            <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-neon-blue mx-auto mb-4"></div>
+            <p class="text-gray-300">Loading your bookings...</p>
+        </div>
+
+        <!-- No Bookings State (hidden by default) -->
+        <div id="noBookingsState" class="text-center py-16 hidden">
+            <div class="max-w-md mx-auto">
+                <i class="fas fa-rocket text-6xl text-neon-blue mb-6"></i>
+                <h2 class="font-orbitron text-3xl text-glow mb-4">No Bookings Yet</h2>
+                <p class="text-xl text-gray-300 mb-8">
+                    You haven't booked any space journeys yet. Start your adventure among the stars!
+                </p>
+                <a href="booking.html" class="btn-primary text-white px-8 py-4 rounded-lg font-bold text-lg glow inline-block">
+                    Book Your First Journey
+                </a>
+            </div>
+        </div>
+
+        <!-- Not Logged In State (hidden by default) -->
+        <div id="notLoggedInState" class="text-center py-16 hidden">
+            <div class="max-w-md mx-auto">
+                <i class="fas fa-user-astronaut text-6xl text-neon-blue mb-6"></i>
+                <h2 class="font-orbitron text-3xl text-glow mb-4">Sign In Required</h2>
+                <p class="text-xl text-gray-300 mb-8">
+                    Please sign in to view your booking history and manage your space journeys.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="login.html" class="btn-primary text-white px-8 py-4 rounded-lg font-bold text-lg glow text-center">
+                        Sign In Now
+                    </a>
+                    <a href="index.html" class="bg-space-blue text-white px-8 py-4 rounded-lg font-bold text-lg border border-neon-blue/30 hover:bg-space-purple transition-colors text-center">
+                        Return Home
+                    </a>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- Footer -->
@@ -411,7 +466,7 @@
     </footer>
 
     <script src="JavaScript/index.js" defer></script>
-    <script src="JavaScript/booking.js" defer></script>
+    <script src="JavaScript/mybooking.js" defer></script>
 </body>
 
 </html>
