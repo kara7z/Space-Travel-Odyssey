@@ -1,23 +1,18 @@
-// ticket.js - Generate ticket content dynamically
 document.addEventListener('DOMContentLoaded', () => {
     // Get booking index from URL parameter
     const urlParams = new URLSearchParams(window.location.search);
     const bookingIndex = urlParams.get('booking');
-
     if (bookingIndex === null) {
         showError('No booking specified!');
         return;
     }
-
     // Load booking data
     const bookings = JSON.parse(localStorage.getItem('spaceVoyagerBookings')) || [];
     const booking = bookings[parseInt(bookingIndex)];
-
     if (!booking) {
         showError('Booking not found!');
         return;
     }
-
     // Generate and display the ticket
     generateTicket(booking);
 });
@@ -44,23 +39,19 @@ function generateTicket(booking) {
         hour: '2-digit',
         minute: '2-digit'
     });
-    
     const departureDate = new Date(booking.departureDate).toLocaleDateString('en-US', {
         weekday: 'long',
         year: 'numeric',
         month: 'long',
         day: 'numeric'
     });
-
     // Calculate days until departure
     const today = new Date();
     const departure = new Date(booking.departureDate);
     const daysUntilDeparture = Math.ceil((departure - today) / (1000 * 60 * 60 * 24));
-    
     let status = 'Upcoming Journey';
     let statusColor = 'text-neon-cyan';
     let statusBg = 'bg-cyan-100';
-    
     if (daysUntilDeparture < 0) {
         status = 'Journey Completed';
         statusColor = 'text-gray-600';
@@ -70,10 +61,9 @@ function generateTicket(booking) {
         statusColor = 'text-yellow-600';
         statusBg = 'bg-yellow-100';
     }
-
     // Generate the ticket HTML
     const ticketHTML = `
-        <div class="planet-card">
+        <div class="planet-card" id="invoice">
             <!-- Ticket Header with Gradient -->
             <div class="bg-gradient-to-r from-neon-blue to-neon-purple p-6 text-white">
                 <div class="flex justify-between items-start">
@@ -93,7 +83,6 @@ function generateTicket(booking) {
                     </div>
                 </div>
             </div>
-
             <div class="p-8">
                 <!-- Status Badge -->
                 <div class="text-center mb-6">
@@ -101,12 +90,11 @@ function generateTicket(booking) {
                         ${status}
                     </span>
                 </div>
-
                 <!-- Departure Information -->
                 <div class="text-center mb-8 bg-blue-50 p-6 rounded-lg">
                     <div class="text-gray-600 text-sm mb-2">DEPARTURE DATE</div>
                     <div class="text-3xl font-bold text-gray-800 font-orbitron mb-2">
-                        📅 ${departureDate}
+                         ${departureDate}
                     </div>
                     ${daysUntilDeparture > 0 ? `
                         <div class="text-lg ${daysUntilDeparture <= 7 ? 'text-yellow-600 font-bold' : 'text-gray-600'}">
@@ -114,7 +102,6 @@ function generateTicket(booking) {
                         </div>
                     ` : ''}
                 </div>
-
                 <!-- Booking Details Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                     <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-neon-blue">
@@ -125,7 +112,6 @@ function generateTicket(booking) {
                             ${booking.passengers} Traveler${booking.passengers !== 1 ? 's' : ''}
                         </div>
                     </div>
-
                     <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-neon-purple">
                         <div class="text-gray-600 text-sm mb-1 flex items-center">
                             <i class="fas fa-hotel mr-2"></i>Accommodation
@@ -134,7 +120,6 @@ function generateTicket(booking) {
                             ${booking.accommodation.name}
                         </div>
                     </div>
-
                     <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-neon-cyan">
                         <div class="text-gray-600 text-sm mb-1 flex items-center">
                             <i class="fas fa-hourglass-half mr-2"></i>Duration
@@ -143,7 +128,6 @@ function generateTicket(booking) {
                             ${booking.destination.duration} Days
                         </div>
                     </div>
-
                     <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-green-500">
                         <div class="text-gray-600 text-sm mb-1 flex items-center">
                             <i class="fas fa-clock mr-2"></i>Booked On
@@ -153,7 +137,6 @@ function generateTicket(booking) {
                         </div>
                     </div>
                 </div>
-
                 <!-- Special Requirements -->
                 ${booking.specialRequirements ? `
                     <div class="mb-8 bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
@@ -166,11 +149,10 @@ function generateTicket(booking) {
                         </div>
                     </div>
                 ` : ''}
-
                 <!-- Travelers Section -->
                 <div class="mb-8">
                     <div class="text-xl font-orbitron font-bold text-gray-800 mb-4 pb-2 border-b-2 border-gray-200">
-                        👨‍🚀 Passenger Information
+                        Passenger Information
                     </div>
                     <div class="space-y-3">
                         ${booking.travelers.map((traveler, idx) => `
@@ -189,7 +171,6 @@ function generateTicket(booking) {
                         `).join('')}
                     </div>
                 </div>
- 
                 <!-- Contact Information -->
                 <div class="text-center bg-gray-50 p-6 rounded-lg mb-8">
                     <div class="text-sm text-gray-600 mb-2">Need Assistance?</div>
@@ -200,10 +181,9 @@ function generateTicket(booking) {
                         📞 +1 (800) SPACE-TRIP
                     </div>
                 </div>
-
                 <!-- Action Buttons -->
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button class="bg-gradient-to-r from-neon-blue to-neon-purple text-white px-8 py-4 rounded-lg font-bold text-lg hover:shadow-lg transition-all flex items-center justify-center">
+                    <button onclick="window.print()" class="bg-gradient-to-r from-neon-blue to-neon-purple text-white px-8 py-4 rounded-lg font-bold text-lg hover:shadow-lg transition-all flex items-center justify-center">
                         <i class="fas fa-print mr-2"></i>
                         Print Ticket
                     </button>
@@ -212,7 +192,6 @@ function generateTicket(booking) {
                         Back to Bookings
                     </a>
                 </div>
-
                 <!-- Footer -->
                 <div class="text-center mt-8 pt-6 border-t border-gray-200">
                     <div class="text-sm text-gray-500 italic">
@@ -222,13 +201,10 @@ function generateTicket(booking) {
             </div>
         </div>
     `;
-
     // Insert the ticket into the container
     const container = document.getElementById('ticketContainer');
     if (container) {
         container.innerHTML = ticketHTML;
-        
-        // Generate barcode after HTML is inserted
-       
+        // Generate barcode after HTML is inserted (if you add it back)
     }
 }

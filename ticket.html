@@ -35,6 +35,9 @@
             },
         };
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+        integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
         :root {
             /* Color Palette */
@@ -147,24 +150,71 @@
         @media print {
             body {
                 background: white !important;
+                color: black !important;
             }
-            
-            body::before {
-                display: none;
-            }
-            
-            .print-button,
-            a[href="mybooking.html"] {
+
+            body::before,
+            #stars-container {
                 display: none !important;
             }
-            
+
+            button,
+            a[href="mybooking.html"],
+            .loading,
+            .spinner {
+                display: none !important;
+            }
+
             .planet-card {
                 box-shadow: none !important;
                 border: 1px solid #ccc !important;
+                background: white !important;
+                page-break-inside: avoid;
             }
 
             main {
                 margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            .text-white,
+            .text-gray-300,
+            .text-gray-400,
+            .text-gray-500,
+            .text-gray-600,
+            .text-neon-cyan,
+            .text-neon-blue,
+            .text-yellow-600,
+            .text-yellow-700,
+            .text-yellow-800 {
+                color: #000 !important;
+            }
+
+            .bg-gradient-to-r.from-neon-blue.to-neon-purple,
+            .bg-gradient-to-br.from-neon-blue.to-neon-purple {
+                background: #0ea5e9 !important;
+            }
+
+            .bg-blue-50,
+            .bg-gray-50,
+            .bg-yellow-50,
+            .bg-cyan-100,
+            .bg-yellow-100,
+            .bg-gray-100 {
+                background: #f9f9f9 !important;
+            }
+
+            [class*="border-"] {
+                border-color: #000 !important;
+            }
+
+            .container {
+                width: 100% !important;
+                max-width: none !important;
+            }
+
+            #ticketContainer {
+                margin: 0 auto !important;
                 padding: 0 !important;
             }
         }
@@ -187,10 +237,16 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
     </style>
+
 </head>
 
 <body class="text-white font-exo min-h-screen">
@@ -199,7 +255,7 @@
 
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8 relative z-10">
-        
+
 
         <!-- Ticket Container -->
         <div id="ticketContainer" class="max-w-4xl mx-auto">
