@@ -360,6 +360,8 @@
                     class="hover:text-neon-blue transition-colors py-2 border-b border-neon-blue/20">Booking</a>
                 <a href="about.html"
                     class="hover:text-neon-blue transition-colors py-2 border-b border-neon-blue/20">About</a>
+                <a href="mybooking.html" class="hover:text-neon-blue transition-colors py-2 border-b border-neon-blue/20">My Booking</a>
+
                 <a id="mobileLoginLink" href="login.html" class="hover:text-neon-blue transition-colors py-2">Login</a>
                 <a id="mobileLogoutLink" class="hover:text-neon-blue transition-colors py-2 hidden">Log-out</a>
             </div>
@@ -380,16 +382,16 @@
 
         <!-- Bookings Container -->
         <div id="bookingsContainer" class="max-w-6xl mx-auto">
-            <!-- Content will be dynamically loaded by JavaScript -->
+           
         </div>
 
-        <!-- Loading State -->
+        <!-- Loading -->
         <div id="loadingState" class="text-center py-12">
             <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-neon-blue mx-auto mb-4"></div>
             <p class="text-gray-300">Loading your bookings...</p>
         </div>
 
-        <!-- No Bookings State (hidden by default) -->
+        <!-- No Bookings State -->
         <div id="noBookingsState" class="text-center py-16 hidden">
             <div class="max-w-md mx-auto">
                 <i class="fas fa-rocket text-6xl text-neon-blue mb-6"></i>
@@ -403,7 +405,7 @@
             </div>
         </div>
 
-        <!-- Not Logged In State (hidden by default) -->
+        <!-- Not Logged In State -->
         <div id="notLoggedInState" class="text-center py-16 hidden">
             <div class="max-w-md mx-auto">
                 <i class="fas fa-user-astronaut text-6xl text-neon-blue mb-6"></i>
