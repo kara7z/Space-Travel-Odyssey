@@ -1,19 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Get booking index from URL parameter
     const urlParams = new URLSearchParams(window.location.search);
     const bookingIndex = urlParams.get('booking');
     if (bookingIndex === null) {
         showError('No booking specified!');
         return;
     }
-    // Load booking data
     const bookings = JSON.parse(localStorage.getItem('spaceVoyagerBookings')) || [];
     const booking = bookings[parseInt(bookingIndex)];
     if (!booking) {
         showError('Booking not found!');
         return;
     }
-    // Generate and display the ticket
     generateTicket(booking);
 });
 
@@ -61,7 +58,7 @@ function generateTicket(booking) {
         statusColor = 'text-yellow-600';
         statusBg = 'bg-yellow-100';
     }
-    // Generate the ticket HTML
+    // ticket HTML
     const ticketHTML = `
         <div class="planet-card" id="invoice">
             <!-- Ticket Header with Gradient -->
@@ -201,10 +198,8 @@ function generateTicket(booking) {
             </div>
         </div>
     `;
-    // Insert the ticket into the container
     const container = document.getElementById('ticketContainer');
     if (container) {
         container.innerHTML = ticketHTML;
-        // Generate barcode after HTML is inserted (if you add it back)
     }
 }

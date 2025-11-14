@@ -1,8 +1,6 @@
-/* -------------------------------------------------
-   GLOBAL NAVIGATION – works on every page
-   ------------------------------------------------- */
+
 document.addEventListener('DOMContentLoaded', () => {
-  // === Elements ===
+  
   const desktopLoginLink   = document.getElementById('desktopLoginLink');
   const userBtnWrapper     = document.getElementById('userBtnWrapper');
   const mobileLoginLink    = document.getElementById('mobileLoginLink');

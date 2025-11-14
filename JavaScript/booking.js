@@ -18,19 +18,16 @@ document.addEventListener('DOMContentLoaded', () => {
   let isEditMode = false;
   let editBookingIndex = null;
 
-  // Check if we're in edit mode
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('edit') === 'true') {
     isEditMode = true;
     editBookingIndex = localStorage.getItem('editBookingIndex');
   }
 
-  // Debug function to log current state
   const debugPassengerState = () => {
     console.log(`Current: passengerCount=${passengerCount}, maxPassengers=${maxPassengers}, visibleFields=${passengersContainer.children.length}`);
   };
 
-  // if user is logged in
   const isUserLoggedIn = () => {
     return localStorage.getItem('loggedIn') === 'true';
   };
@@ -77,7 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
     totalCounter.textContent = totalPrice.toLocaleString();
   };
 
-  // Function to update passenger fields based on current count and max
   const updatePassengerFields = () => {
     const currentFields = passengersContainer.children.length;
     
@@ -91,18 +87,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
     
-    // Update passenger count to match visible fields
     passengerCount = passengersContainer.children.length;
     
-    // Update add passenger button visibility
     addPassengerBtn.style.display = passengerCount < maxPassengers ? 'block' : 'none';
     
-    // Update labels for all passenger fields
     document.querySelectorAll('.passenger-fields').forEach((field, index) => {
       const passengerNumber = index + 1;
       field.dataset.passenger = passengerNumber;
       
-      // Update all labels and placeholders
       const labels = field.querySelectorAll('label');
       const inputs = field.querySelectorAll('input');
       
@@ -126,7 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
     updateTotalPrice();
   };
 
-  /* Fetch destinations */
   fetch('data/destinations.json').then(res => res.json())
     .then(data => {
       destinationsData = data.destinations;
@@ -136,14 +127,12 @@ document.addEventListener('DOMContentLoaded', () => {
       ).join('');
       destinationSelect.insertAdjacentHTML('beforeend', optionsHTML);
       
-      // Load edit data after destinations are loaded
       if (isEditMode) {
         loadEditData();
       }
     })
     .catch(console.error);
 
-  /* Fetch accommodations*/
   fetch('data/accommodations.json').then(res => res.json())
     .then(data => {
       accommodationsData = data.accommodations;
@@ -226,7 +215,6 @@ document.addEventListener('DOMContentLoaded', () => {
           accomCard.click();
         }
 
-        // Set special requirements
         message.value = editData.specialRequirements || '';
       }, 300);
     }, 500);
@@ -248,7 +236,6 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // Get the selected destination price and duration
     const selectedDestination = destinationsData.find(dest => dest.id === selectedId);
     if (selectedDestination) {
       currentDestinationPrice = selectedDestination.price;
@@ -281,7 +268,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const value = e.target.value;
       console.log(`Radio changed to: ${value}`);
       
-      // Set max passengers based on selection
       switch(value) {
         case '1':
           maxPassengers = 1;
@@ -368,7 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updatePassengerFields();
   });
 
-  // Event listener to detect current passenger count
+  // Event listener 
   const detectPassengerCount = () => {
     const visibleFields = document.querySelectorAll('.passenger-fields').length;
     passengerCount = visibleFields;
@@ -376,19 +362,15 @@ document.addEventListener('DOMContentLoaded', () => {
     updatePassengerFields();
   };
 
-  // Initialize passenger system
   const initializePassengerSystem = () => {
     // Set initial state
     passengerCount = 1;
     maxPassengers = 1;
     
-    // Ensure solo is checked by default
     document.getElementById('solo').checked = true;
     
-    // Hide add passenger button initially
     addPassengerBtn.style.display = 'none';
     
-    // Add mutation observer to detect DOM changes
     const observer = new MutationObserver(detectPassengerCount);
     observer.observe(passengersContainer, { childList: true, subtree: false });
     
@@ -574,7 +556,6 @@ document.addEventListener('DOMContentLoaded', () => {
       
       alert(`Booking updated successfully! Booking ID: ${updatedBooking.bookingId}`);
       
-      // Redirect to My Bookings
       window.location.href = 'mybooking.html';
     } else {
       // Create new booking
@@ -622,7 +603,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       localStorage.removeItem('selectedAccommodation');
       
-      // Reset passenger system
       while (passengersContainer.children.length > 1) {
         passengersContainer.removeChild(passengersContainer.lastChild);
       }
@@ -633,7 +613,6 @@ document.addEventListener('DOMContentLoaded', () => {
       currentDestinationDuration = 0;
       updateTotalPrice();
       
-      // Optional: Redirect to My Bookings page after a short delay
       setTimeout(() => {
         if (confirm('Would you like to view your booking details now?')) {
           window.location.href = 'mybooking.html';
@@ -642,7 +621,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Initialize everything
   initializePassengerSystem();
   updateTotalPrice();
 });

@@ -1,6 +1,4 @@
-/* -------------------------------------------------
-   LOGIN PAGE ONLY – form validation + stars
-   ------------------------------------------------- */
+
 let userData = [];
 
 fetch('data/user.json')
@@ -14,9 +12,7 @@ fetch('data/user.json')
   })
   .catch(err => console.error('Error fetching user data:', err));
 
-/* -------------------------------------------------
-   Form elements
-   ------------------------------------------------- */
+
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
 const loginBtn = document.getElementById('loginBtn');
@@ -61,9 +57,7 @@ function startLiveChecks() {
   LiveEventListener(passwordInput, checkInput(passwordInput, correctPassword, 'password-feedback', 'password'));
 }
 
-/* -------------------------------------------------
-   Login submit
-   ------------------------------------------------- */
+
 form?.addEventListener('submit', e => {
   e.preventDefault();
   if (!loginBtn.disabled) {
