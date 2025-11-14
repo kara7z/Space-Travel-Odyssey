@@ -136,8 +136,8 @@ The site features a **consistent header and navigation** across all pages:
 
 ---
 ## Deployment
-**Live Site**: [https://your-space-travel-odyssey.github.io](https://your-space-travel-odyssey.github.io)  
-**GitHub Repository**: [https://github.com/yourusername/Space-Travel-Odyssey](https://github.com/yourusername/Space-Travel-Odyssey)
+**Live Site**: [https://kara7z.github.io/Space-Travel-Odyssey/](https://kara7z.github.io/Space-Travel-Odyssey/)  
+**GitHub Repository**: [https://github.com/kara7z/Space-Travel-Odyssey.git](https://github.com/kara7z/Space-Travel-Odyssey.git)
 
 Hosted on **GitHub Pages** for fast, reliable static delivery.
 
